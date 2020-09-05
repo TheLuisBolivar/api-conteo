@@ -47,7 +47,7 @@ public class SwitchServiceImpl implements SwitchService {
                 break;
             default:
                 problemDtoRs = ProblemDtoRs.builder()
-                        .resultado(0)
+                        .resultado(0D)
                         .description(ConteoConstants.SIN_CASO).build();
                 break;
         }

@@ -18,28 +18,36 @@ public class ConteoUtils {
                     Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
                 result = "";
             } else {
-                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
-                    result = ConteoConstants.PERMUTACION_REPETICION;
+                if (Boolean.FALSE.equals(problemDtoRq.getImportaOrden())) {
+                    result = "";
                 } else {
-                    result = ConteoConstants.PERMUTACION;
-                }
+                    if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                        result = ConteoConstants.PERMUTACION_REPETICION;
+                    } else {
+                        result = ConteoConstants.PERMUTACION;
+                    }
 
-                if (Boolean.TRUE.equals(problemDtoRq.getEsCircular())) {
-                    result = ConteoConstants.PERMUTACION_CIRCULAR;
+                    if (Boolean.TRUE.equals(problemDtoRq.getEsCircular())) {
+                        result = ConteoConstants.PERMUTACION_CIRCULAR;
+                    }
                 }
             }
         } else {
-            if (Boolean.TRUE.equals(problemDtoRq.getImportaOrden())) {
-                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
-                    result = ConteoConstants.VARIACION_REPETICION;
-                } else {
-                    result = ConteoConstants.VARIACION;
-                }
+            if (Boolean.TRUE.equals(problemDtoRq.getEsCircular())) {
+                result = "";
             } else {
-                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
-                    result = ConteoConstants.COMBINATORIA_REPETICION;
+                if (Boolean.TRUE.equals(problemDtoRq.getImportaOrden())) {
+                    if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                        result = ConteoConstants.VARIACION_REPETICION;
+                    } else {
+                        result = ConteoConstants.VARIACION;
+                    }
                 } else {
-                    result = ConteoConstants.COMBINATORIA;
+                    if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                        result = ConteoConstants.COMBINATORIA_REPETICION;
+                    } else {
+                        result = ConteoConstants.COMBINATORIA;
+                    }
                 }
             }
         }

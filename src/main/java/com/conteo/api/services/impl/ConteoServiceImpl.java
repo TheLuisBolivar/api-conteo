@@ -12,12 +12,13 @@ import java.util.stream.LongStream;
 @Service
 public class ConteoServiceImpl implements ConteoService {
 
-    private Long factorialMethod(int n){
-        return LongStream.rangeClosed(1, n)
+    private Double factorialMethod(int n){
+        Long tutu = LongStream.rangeClosed(1, n)
                 .reduce(1, (long x, long y) -> x * y);
+        return Double.parseDouble(String.valueOf(tutu));
     }
 
-    private ProblemDtoRs buildResult(long result, String description){
+    private ProblemDtoRs buildResult(Double result, String description){
         ProblemDtoRs problemDtoRs = ProblemDtoRs.builder()
                 .resultado(result)
                 .description(description)
@@ -26,8 +27,8 @@ public class ConteoServiceImpl implements ConteoService {
         return problemDtoRs;
     }
 
-    private Long getListFactorialResult(List<Integer> listRepeats){
-        Long result = 1L;
+    private Double getListFactorialResult(List<Integer> listRepeats){
+        Double result = 1D;
         for(Integer i : listRepeats){
             result *= factorialMethod(i);
         }
@@ -35,29 +36,30 @@ public class ConteoServiceImpl implements ConteoService {
     }
 
     public ProblemDtoRs getPermutation(ProblemDtoRq problemDtoRq) {
-        Long result = factorialMethod(problemDtoRq.getN());
+        Double result = factorialMethod(problemDtoRq.getN());
         String description = ConteoConstants.SOLUCION +ConteoConstants.PERMUTACION;
         return buildResult(result, description);
     }
 
     public ProblemDtoRs getPermutationCircular(ProblemDtoRq problemDtoRq) {
-        Long result = factorialMethod(problemDtoRq.getN() - 1);
+        Double result = factorialMethod(problemDtoRq.getN() - 1);
         String description = ConteoConstants.SOLUCION +ConteoConstants.PERMUTACION_CIRCULAR;
         return buildResult(result, description);
     }
 
     public ProblemDtoRs getPermutationWithRepeat(ProblemDtoRq problemDtoRq) {
-        Long numerator = factorialMethod(problemDtoRq.getN());
-        Long denominator = getListFactorialResult(problemDtoRq.getListVariablesToRepeat());
+        Double numerator = factorialMethod(problemDtoRq.getN());
+        Double denominator = getListFactorialResult(problemDtoRq.getListVariablesToRepeat());
         String description = ConteoConstants.SOLUCION + ConteoConstants.PERMUTACION_REPETICION;
-        return buildResult((numerator / denominator), description);
+        Double resultFinal = numerator / denominator;
+        return buildResult(resultFinal, description);
     }
 
     public ProblemDtoRs getVariation(ProblemDtoRq problemDtoRq) {
-        long m = factorialMethod(problemDtoRq.getM());
-        int result = problemDtoRq.getM() - problemDtoRq.getN();
-        long denominator = factorialMethod(result);
-        long resultFinal = (m / denominator);
+        Double m = factorialMethod(problemDtoRq.getM());
+        Integer result = problemDtoRq.getM() - problemDtoRq.getN();
+        Double denominator = factorialMethod(result);
+        Double resultFinal = (m / denominator);
         String description = ConteoConstants.SOLUCION + ConteoConstants.VARIACION;
         return buildResult(resultFinal, description);
     }
@@ -65,27 +67,28 @@ public class ConteoServiceImpl implements ConteoService {
     public ProblemDtoRs getVariationWithRepeat(ProblemDtoRq problemDtoRq) {
         Long m = Long.valueOf(problemDtoRq.getM());
         Long n = Long.valueOf(problemDtoRq.getN());
-        double result = Math.pow(m, n);
-        Long x = Long.valueOf((long) result);
+        Double result = Math.pow(m, n);
         String description = ConteoConstants.SOLUCION + ConteoConstants.VARIACION_REPETICION;
-        return buildResult(x, description);
+        return buildResult(result, description);
     }
 
     public ProblemDtoRs getCombination(ProblemDtoRq problemDtoRq) {
-        Long m = factorialMethod(problemDtoRq.getM());
-        Long n = factorialMethod(problemDtoRq.getN());
-        Long mMenosN = factorialMethod(problemDtoRq.getM() - problemDtoRq.getN());
-        Long denominator = n * mMenosN;
+        Double m = factorialMethod(problemDtoRq.getM());
+        Double n = factorialMethod(problemDtoRq.getN());
+        Double mMenosN = factorialMethod(problemDtoRq.getM() - problemDtoRq.getN());
+        Double denominator = n * mMenosN;
         String description = ConteoConstants.SOLUCION + ConteoConstants.COMBINATORIA;
-        return buildResult((m / denominator), description);
+        Double resultFinal = m / denominator;
+        return buildResult(resultFinal, description);
     }
 
     public ProblemDtoRs getCombinationWithRepeat(ProblemDtoRq problemDtoRq) {
-        Long numerator =  factorialMethod((problemDtoRq.getM() + problemDtoRq.getN() - 1));
-        Long n = factorialMethod(problemDtoRq.getN());
-        Long mMenos1 = factorialMethod(problemDtoRq.getM() - 1);
-        Long denominator = (n * mMenos1);
+        Double numerator =  factorialMethod((problemDtoRq.getM() + problemDtoRq.getN() - 1));
+        Double n = factorialMethod(problemDtoRq.getN());
+        Double mMenos1 = factorialMethod(problemDtoRq.getM() - 1);
+        Double denominator = (n * mMenos1);
         String description = ConteoConstants.SOLUCION + ConteoConstants.COMBINATORIA_REPETICION;
-        return buildResult((numerator / denominator), description);
+        Double resultFinal = numerator / denominator;
+        return buildResult(resultFinal, description);
     }
 }

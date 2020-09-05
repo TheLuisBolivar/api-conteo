@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class ProblemDtoRs {
 
-    private long resultado;
+    private Double resultado;
     private String description;
 }
