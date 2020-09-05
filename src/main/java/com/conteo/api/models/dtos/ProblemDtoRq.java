@@ -2,6 +2,8 @@ package com.conteo.api.models.dtos;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ProblemDtoRq {
 
@@ -10,7 +12,8 @@ public class ProblemDtoRq {
     private Boolean seRepite;
     private Boolean esCircular;
 
+    private List<Integer> listVariablesToRepeat;
+
     private int m;
     private int n;
-
 }
