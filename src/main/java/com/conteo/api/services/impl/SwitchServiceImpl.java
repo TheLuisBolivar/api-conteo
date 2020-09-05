@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Log4j2
 @Service
 public class SwitchServiceImpl implements SwitchService {
@@ -47,7 +49,7 @@ public class SwitchServiceImpl implements SwitchService {
                 break;
             default:
                 problemDtoRs = ProblemDtoRs.builder()
-                        .resultado(0D)
+                        .resultado(new BigDecimal(0))
                         .description(ConteoConstants.SIN_CASO).build();
                 break;
         }
