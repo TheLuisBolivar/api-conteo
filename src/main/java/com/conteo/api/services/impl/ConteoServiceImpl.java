@@ -66,8 +66,9 @@ public class ConteoServiceImpl implements ConteoService {
         Long m = Long.valueOf(problemDtoRq.getM());
         Long n = Long.valueOf(problemDtoRq.getN());
         double result = Math.pow(m, n);
+        Long x = Long.valueOf((long) result);
         String description = ConteoConstants.SOLUCION + ConteoConstants.VARIACION_REPETICION;
-        return buildResult(Long.valueOf(String.valueOf(result)), description);
+        return buildResult(x, description);
     }
 
     public ProblemDtoRs getCombination(ProblemDtoRq problemDtoRq) {

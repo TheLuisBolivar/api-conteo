@@ -9,30 +9,36 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class ConteoUtils {
 
-    public String getCase(ProblemDtoRq problemDtoRq){
+    public String getCase(ProblemDtoRq problemDtoRq) {
         String result = "";
         log.info("[getCase]: ProblemDtoRq: {}", new Gson().toJson(problemDtoRq));
 
-        if(Boolean.TRUE.equals(problemDtoRq.getEntranTodos())){
-            if(Boolean.TRUE.equals(problemDtoRq.getSeRepite())){
-                result = ConteoConstants.PERMUTACION_REPETICION;
-            }
-
-            if(Boolean.TRUE.equals(problemDtoRq.getEsCircular())){
-                result = ConteoConstants.PERMUTACION_CIRCULAR;
-            }
-        }else{
-            if(Boolean.TRUE.equals(problemDtoRq.getImportaOrden())){
-                if(Boolean.TRUE.equals(problemDtoRq.getSeRepite())){
-                    result = ConteoConstants.VARIACION_REPETICION;
+        if (Boolean.TRUE.equals(problemDtoRq.getEntranTodos())) {
+            if (Boolean.TRUE.equals(problemDtoRq.getEsCircular()) &&
+                    Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                result = "";
+            } else {
+                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                    result = ConteoConstants.PERMUTACION_REPETICION;
+                } else {
+                    result = ConteoConstants.PERMUTACION;
                 }
-                else{
+
+                if (Boolean.TRUE.equals(problemDtoRq.getEsCircular())) {
+                    result = ConteoConstants.PERMUTACION_CIRCULAR;
+                }
+            }
+        } else {
+            if (Boolean.TRUE.equals(problemDtoRq.getImportaOrden())) {
+                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
+                    result = ConteoConstants.VARIACION_REPETICION;
+                } else {
                     result = ConteoConstants.VARIACION;
                 }
-            }else{
-                if(Boolean.TRUE.equals(problemDtoRq.getSeRepite())){
+            } else {
+                if (Boolean.TRUE.equals(problemDtoRq.getSeRepite())) {
                     result = ConteoConstants.COMBINATORIA_REPETICION;
-                }else{
+                } else {
                     result = ConteoConstants.COMBINATORIA;
                 }
             }
