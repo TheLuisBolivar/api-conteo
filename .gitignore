@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+7_proyectos_u.iml
+HELP.md
+mvnw
+.idea/*
+.idea
