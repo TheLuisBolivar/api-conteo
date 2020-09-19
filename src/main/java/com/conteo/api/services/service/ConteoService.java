@@ -7,7 +7,7 @@ public interface ConteoService {
 
     ProblemDtoRs getPermutation(ProblemDtoRq problemDtoRq);
     ProblemDtoRs getPermutationCircular(ProblemDtoRq problemDtoRq);
-    ProblemDtoRs getPermutationWithRepeat(ProblemDtoRq problemDtoRq);
+    ProblemDtoRs getPermutationWithRepeat(ProblemDtoRq problemDtoRq) throws Exception;
     ProblemDtoRs getVariation(ProblemDtoRq problemDtoRq);
     ProblemDtoRs getVariationWithRepeat(ProblemDtoRq problemDtoRq);
     ProblemDtoRs getCombination(ProblemDtoRq problemDtoRq);
