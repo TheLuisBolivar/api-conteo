@@ -22,7 +22,7 @@ public class SwitchServiceImpl implements SwitchService {
     @Autowired
     private ConteoUtils conteoUtils;
 
-    public ProblemDtoRs resolveCase(ProblemDtoRq problemDtoRq) {
+    public ProblemDtoRs resolveCase(ProblemDtoRq problemDtoRq) throws Exception {
         String caseConteo = conteoUtils.getCase(problemDtoRq);
         ProblemDtoRs problemDtoRs;
         switch (caseConteo) {

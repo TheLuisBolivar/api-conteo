@@ -18,7 +18,7 @@ public class ApiConteoController {
     @Autowired private SwitchService switchService;
 
     @PostMapping("/contar")
-    public ResponseEntity getResultConteo(@RequestBody ProblemDtoRq problemDtoRq){
+    public ResponseEntity getResultConteo(@RequestBody ProblemDtoRq problemDtoRq) throws Exception {
         ProblemDtoRs problemDtoRs =  switchService.resolveCase(problemDtoRq);
         return new ResponseEntity(problemDtoRs, HttpStatus.OK);
     }

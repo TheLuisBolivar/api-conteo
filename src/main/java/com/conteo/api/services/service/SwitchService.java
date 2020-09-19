@@ -5,5 +5,5 @@ import com.conteo.api.models.dtos.ProblemDtoRs;
 
 public interface SwitchService {
 
-    ProblemDtoRs resolveCase(ProblemDtoRq problemDtoRq);
+    ProblemDtoRs resolveCase(ProblemDtoRq problemDtoRq) throws Exception;
 }
