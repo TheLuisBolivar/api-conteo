@@ -1,6 +1,7 @@
-package com.conteo.api.utils;
+package com.conteo.api.utils.conteo;
 
-import com.conteo.api.models.dtos.ProblemDtoRq;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRq;
+import com.conteo.api.utils.conteo.ConteoConstants;
 import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;

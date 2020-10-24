@@ -1,7 +1,7 @@
 package com.conteo.api.controllers;
 
-import com.conteo.api.models.dtos.ProblemDtoRq;
-import com.conteo.api.models.dtos.ProblemDtoRs;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRq;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRs;
 import com.conteo.api.services.conteo.service.SwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

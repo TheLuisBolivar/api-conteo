@@ -1,4 +1,4 @@
-package com.conteo.api.utils;
+package com.conteo.api.utils.conteo;
 
 public class ConteoConstants {
 

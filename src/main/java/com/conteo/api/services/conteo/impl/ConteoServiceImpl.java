@@ -1,9 +1,9 @@
 package com.conteo.api.services.conteo.impl;
 
-import com.conteo.api.models.dtos.ProblemDtoRq;
-import com.conteo.api.models.dtos.ProblemDtoRs;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRq;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRs;
 import com.conteo.api.services.conteo.service.ConteoService;
-import com.conteo.api.utils.ConteoConstants;
+import com.conteo.api.utils.conteo.ConteoConstants;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

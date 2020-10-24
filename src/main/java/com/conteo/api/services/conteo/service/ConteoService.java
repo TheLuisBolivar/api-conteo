@@ -1,7 +1,7 @@
 package com.conteo.api.services.conteo.service;
 
-import com.conteo.api.models.dtos.ProblemDtoRq;
-import com.conteo.api.models.dtos.ProblemDtoRs;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRq;
+import com.conteo.api.models.dtos.conteo.ProblemDtoRs;
 
 public interface ConteoService {
 

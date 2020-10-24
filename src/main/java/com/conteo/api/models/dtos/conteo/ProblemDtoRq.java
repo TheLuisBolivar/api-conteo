@@ -1,4 +1,4 @@
-package com.conteo.api.models.dtos;
+package com.conteo.api.models.dtos.conteo;
 
 import lombok.Data;
 
