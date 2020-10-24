@@ -1,9 +1,9 @@
-package com.conteo.api.services.impl;
+package com.conteo.api.services.conteo.impl;
 
 import com.conteo.api.models.dtos.ProblemDtoRq;
 import com.conteo.api.models.dtos.ProblemDtoRs;
-import com.conteo.api.services.service.ConteoService;
-import com.conteo.api.services.service.SwitchService;
+import com.conteo.api.services.conteo.service.ConteoService;
+import com.conteo.api.services.conteo.service.SwitchService;
 import com.conteo.api.utils.ConteoConstants;
 import com.conteo.api.utils.ConteoUtils;
 import lombok.extern.log4j.Log4j2;

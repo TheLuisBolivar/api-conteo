@@ -1,9 +1,6 @@
 package com.conteo.api.controllers;
 
 import com.conteo.api.models.dtos.ProblemDtoRq;
-import com.conteo.api.models.dtos.ProblemDtoRs;
-import com.conteo.api.services.conteo.service.SwitchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,14 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api-conteo")
-public class ApiConteoController {
+@RequestMapping("/monty-hall")
+public class MontyHallController {
 
-    @Autowired private SwitchService switchService;
-
-    @PostMapping("/contar")
+    @PostMapping("/solve")
     public ResponseEntity getResultConteo(@RequestBody ProblemDtoRq problemDtoRq) throws Exception {
-        ProblemDtoRs problemDtoRs =  switchService.resolveCase(problemDtoRq);
-        return new ResponseEntity(problemDtoRs, HttpStatus.OK);
+        return new ResponseEntity("Solucion", HttpStatus.OK);
     }
 }
