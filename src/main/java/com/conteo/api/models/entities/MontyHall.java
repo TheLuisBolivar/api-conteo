@@ -1,7 +1,12 @@
 package com.conteo.api.models.entities;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Entity(name = "MONTY_HALL")
@@ -21,11 +26,14 @@ public class MontyHall {
     @Column(name = "DOOR_CORRECT")
     private Integer doorCorrect;
 
+    @Column(name = "DOOR_SUGGESTION")
+    private Integer doorSuggestion;
+
     @Column(name = "DATE_START")
-    private Long dateStart;
+    private String dateStart;
 
     @Column(name = "DATE_FINISH")
-    private Long dateFinish;
+    private String dateFinish;
 
     @Column(name = "FINISHED")
     private Integer finished;

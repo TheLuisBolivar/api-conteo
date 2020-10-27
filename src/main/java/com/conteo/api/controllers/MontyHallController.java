@@ -19,8 +19,8 @@ public class MontyHallController {
     @Autowired private MontyHallService montyHallService;
 
     @PostMapping("/play")
-    public ResponseEntity calculate(@RequestBody MontyHallReqDto montyHallReqDto) throws Exception {
-        MontyHallResDto montyHallResDto = montyHallService.calculate(montyHallReqDto);
+    public ResponseEntity play(@RequestBody MontyHallReqDto montyHallReqDto) throws Exception {
+        MontyHallResDto montyHallResDto = montyHallService.play(montyHallReqDto);
         return new ResponseEntity(montyHallResDto, HttpStatus.OK);
     }
 }

@@ -19,7 +19,7 @@ public class BayesServiceImpl implements BayesService {
     @Autowired private BayesUtil bayesUtil;
 
     public BayesResDto calculate(BayesReqDto bayesReqDto) throws Exception {
-        BigDecimal numerator = multiplicationValues(bayesReqDto.getBIntersectionAi());
+        BigDecimal numerator = multiplicationValues(bayesReqDto.getX());
         BigDecimal denominator = multiplicationOfList(bayesReqDto.getValuesProbabilityB());
 
         if (numerator.equals(BigDecimal.ZERO) || denominator.equals(BigDecimal.ZERO)) {
