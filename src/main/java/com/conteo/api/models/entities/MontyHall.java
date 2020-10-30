@@ -37,4 +37,7 @@ public class MontyHall {
 
     @Column(name = "FINISHED")
     private Integer finished;
+
+    @Column(name = "RESULT")
+    private String result;
 }

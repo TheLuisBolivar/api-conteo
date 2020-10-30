@@ -7,7 +7,6 @@ import com.conteo.api.models.repositories.MontyHallRepo;
 import com.conteo.api.services.montyhall.service.MontyHallService;
 import com.conteo.api.utils.montyhall.MontyHallConstant;
 import com.conteo.api.utils.montyhall.MontyHallUtil;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BinaryOperator;
 
 @Log4j2
 @Service
@@ -33,14 +31,15 @@ public class MontyHallServiceImpl implements MontyHallService {
     }
 
     private MontyHallResDto validateGame(MontyHallReqDto montyHallReqDto, Optional<MontyHall> optional) throws Exception {
-        MontyHallResDto montyHallResDto = null;
+        MontyHallResDto montyHallResDto;
         Boolean status;
         if (optional.isPresent()) {
-            validateResponse(montyHallReqDto, optional.get());
-            //montyHallResDto = getSolution();
+            montyHallUtil.validateEndGame(montyHallReqDto.getOptions());
+            status = validateResponse(montyHallReqDto, optional.get());
+            montyHallResDto = buildFinishGame(status, montyHallReqDto, optional.get());
         } else {
+            montyHallUtil.validateStartGame(montyHallReqDto.getOptions());
             Integer responseUser = montyHallUtil.getResponseUser(montyHallReqDto.getOptions());
-            montyHallUtil.validateResponseUser(responseUser);
             Integer correctDoor = montyHallUtil.generateCorrectDoor(MontyHallConstant.AMOUNT_STANDARD_DOORS);
             Integer suggestion = montyHallUtil.getSuggestion(responseUser, MontyHallConstant.AMOUNT_STANDARD_DOORS, correctDoor);
             status = saveGame(montyHallReqDto.getTransactionId(), responseUser, suggestion, correctDoor);
@@ -52,15 +51,44 @@ public class MontyHallServiceImpl implements MontyHallService {
         return montyHallResDto;
     }
 
-    private void validateResponse(MontyHallReqDto montyHallReqDto, MontyHall montyHall){
-        Integer responseUser = montyHallUtil.getResponseUser(montyHallReqDto.getOptions());
+    private MontyHallResDto buildFinishGame(Boolean result, MontyHallReqDto montyHallReqDto, MontyHall montyHall) {
+        String finalResult = result ?
+                MontyHallConstant.WINNER :
+                MontyHallConstant.LOSER;
+        Calendar calendar = Calendar.getInstance();
+        changesValueToCar(montyHall, montyHallReqDto);
+        montyHall.setDateFinish(String.valueOf(calendar.getTimeInMillis()));
+        montyHall.setFinished(MontyHallConstant.GAME_FINISHED);
+        montyHall.setResult(finalResult);
+
+        Boolean save = saveMontyHall(montyHall);
+
+        return MontyHallResDto.builder()
+                .options(montyHallReqDto.getOptions())
+                .gameSaved(save)
+                .transactionId(montyHallReqDto.getTransactionId())
+                .result(finalResult).build();
+    }
+
+    private void changesValueToCar(MontyHall montyHall, MontyHallReqDto montyHallReqDto){
+        List<String> options = montyHallReqDto.getOptions();
+        for(int i = 0; i < options.size(); i++){
+            if((i + 1) == montyHall.getDoorCorrect()){
+                options.set(i, MontyHallConstant.CAR);
+            }
+        }
+    }
+
+    private Boolean validateResponse(MontyHallReqDto montyHallReqDto, MontyHall montyHall) throws Exception {
+        MontyHall montyHallBuilder = montyHallUtil.transformDataToMontyHall(montyHallReqDto.getOptions());
+        return montyHallUtil.resultGame(montyHallBuilder, montyHall);
     }
 
     private Optional<MontyHall> getMontyHallByTransactionId(Long transactionId) {
         Optional<MontyHall> optional = Optional.empty();
         try {
             MontyHall montyHall = montyHallRepo.findByTransactionId(transactionId);
-            optional = Optional.of(montyHall);
+            optional = montyHallUtil.validateMontyHall(montyHall);
             log.info("[getMontyHallByTransactionId]: get MontyHall successful.");
         } catch (Exception e) {
             log.info("[getMontyHallByTransactionId]: error trying get montyHall object: ", e);
@@ -78,6 +106,7 @@ public class MontyHallServiceImpl implements MontyHallService {
         montyHall.setTransactionId(transactionId);
         montyHall.setFinished(MontyHallConstant.GAME_NOT_FINISHED);
         montyHall.setDateFinish("0");
+        montyHall.setResult(MontyHallConstant.IN_PROGRESS);
         return saveMontyHall(montyHall);
     }
 
@@ -88,16 +117,18 @@ public class MontyHallServiceImpl implements MontyHallService {
         return MontyHallResDto.builder()
                 .options(listOptions)
                 .transactionId(transactionId)
-                .gameSaved(statusGame).build();
+                .gameSaved(statusGame)
+                .result(MontyHallConstant.IN_PROGRESS)
+                .build();
     }
 
-    private Boolean saveMontyHall(MontyHall montyHall){
+    private Boolean saveMontyHall(MontyHall montyHall) {
         Boolean result = Boolean.FALSE;
-        try{
+        try {
             montyHallRepo.save(montyHall);
             result = Boolean.TRUE;
             log.info("[saveMontyHall]: saved successfully");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("[saveMontyHall]: Error trying save montyHall", e);
         }
 

@@ -11,4 +11,5 @@ public class MontyHallResDto {
     List<String> options;
     Long transactionId;
     Boolean gameSaved;
+    String result;
 }
