@@ -40,6 +40,7 @@ public class MarkovServiceImpl implements MarkovService {
     }
 
     private void validateMarkovReqDto(MarkovReqDto markovReqDto) throws Exception {
+        validateN(markovReqDto);
         validateRequest(markovReqDto);
         validateMatrixMarkov(markovReqDto);
         validateInitialState(markovReqDto);
@@ -47,6 +48,7 @@ public class MarkovServiceImpl implements MarkovService {
     }
 
     private void validateMatrixMarkov(MarkovReqDto markovReqDto) throws Exception {
+        markovUtils.validateDataOnMatrix(markovReqDto.getMatrixMarkov());
         if (markovReqDto.getMatrixMarkov().length == 0) {
             log.error("[validateMatrixMarkov]: The list its empty, validate data.");
             throw new Exception("The list its empty, validate data.");
@@ -56,6 +58,7 @@ public class MarkovServiceImpl implements MarkovService {
     }
 
     private void validateInitialState(MarkovReqDto markovReqDto) throws Exception {
+        markovUtils.validateDataOnMatrix(markovReqDto.getInitialState());
         if (markovReqDto.getInitialState().length == 0) {
             log.error("[validateInitialState]: The list its empty, validate data.");
             throw new Exception("The list its empty, validate data.");
@@ -87,5 +90,17 @@ public class MarkovServiceImpl implements MarkovService {
 
         log.info("[validateMatrixMarkovAndInitialState]: the result size matrix is: ({}, {})",
                 rowsInitialState, columnsMatrix);
+    }
+
+    private void validateN(MarkovReqDto markovReqDto) throws Exception {
+        if(markovReqDto.getN() == null){
+            log.error("[validateN]: n value is null");
+            throw new Exception("n value is null");
+        }
+
+        if(markovReqDto.getN() <= 0){
+            log.error("[validateN]: Value of n is incorrect, please validate: {}", markovReqDto.getN());
+            throw new Exception("n value is incorrect, please validate");
+        }
     }
 }

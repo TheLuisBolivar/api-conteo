@@ -70,10 +70,10 @@ public class MontyHallServiceImpl implements MontyHallService {
                 .result(finalResult).build();
     }
 
-    private void changesValueToCar(MontyHall montyHall, MontyHallReqDto montyHallReqDto){
+    private void changesValueToCar(MontyHall montyHall, MontyHallReqDto montyHallReqDto) {
         List<String> options = montyHallReqDto.getOptions();
-        for(int i = 0; i < options.size(); i++){
-            if((i + 1) == montyHall.getDoorCorrect()){
+        for (int i = 0; i < options.size(); i++) {
+            if ((i + 1) == montyHall.getDoorCorrect()) {
                 options.set(i, MontyHallConstant.CAR);
             }
         }

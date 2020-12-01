@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 public class MarkovUtils {
 
     public double[][] generateExponentialMatrix(double[][] matrix, int iterations) {
-        for(int i = 0; i < iterations; i++){
-            matrix = multiplyMatrices(matrix, matrix);
+        double[][] matrixOriginal = matrix;
+        for(int i = 0; i < iterations - 1; i++){
+            matrix = multiplyMatrices(matrix, matrixOriginal);
         }
         return matrix;
     }
@@ -32,5 +33,17 @@ public class MarkovUtils {
             cell += firstMatrix[row][i] * secondMatrix[i][col];
         }
         return cell;
+    }
+
+    public void validateDataOnMatrix(double[][] matrix) throws Exception {
+        for(int i = 0; i < matrix.length; i++){
+            for (int j = 0; j < matrix[i].length; j++){
+                double value = matrix[i][j];
+                if(value > 1 || value < 0){
+                    log.info("[validateDataOnMatrix]: Error validating data, please input data correct: {}", matrix[i][j]);
+                    throw new Exception("Error validating data, please input data correct");
+                }
+            }
+        }
     }
 }
