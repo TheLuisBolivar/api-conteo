@@ -1,6 +1,8 @@
 package com.conteo.api.services.markov.service;
 
-public interface MarkovService {
+import com.conteo.api.models.dtos.markov.MarkovReqDto;
+import com.conteo.api.models.dtos.markov.MarkovResDto;
 
-    Object calculate(Object o);
+public interface MarkovService {
+    MarkovResDto calculate(MarkovReqDto markovReqDto) throws Exception;
 }
