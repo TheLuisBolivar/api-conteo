@@ -44,7 +44,24 @@ public class MarkovServiceImpl implements MarkovService {
         validateRequest(markovReqDto);
         validateMatrixMarkov(markovReqDto);
         validateInitialState(markovReqDto);
+        validateRows(markovReqDto.getMatrixMarkov());
+        validateRows(markovReqDto.getInitialState());
         validateMatrixMarkovAndInitialState(markovReqDto.getMatrixMarkov(), markovReqDto.getInitialState());
+    }
+
+    private void validateRows(double [][] value) throws Exception {
+        for(int i = 0; i < value.length; i++){
+            double result = 0;
+            for(int j = 0; j < value[i].length; j++){
+                result += value[i][j];
+            }
+
+            if(result != 1){
+                log.error("[validateRows]: the sum is different that 1, please validate data");
+                throw new Exception("The sum is different that 1, please validate data");
+            }
+        }
+
     }
 
     private void validateMatrixMarkov(MarkovReqDto markovReqDto) throws Exception {
